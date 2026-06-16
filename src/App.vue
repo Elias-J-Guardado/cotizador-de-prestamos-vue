@@ -11,13 +11,14 @@ const MIN = 0;
 const MAX = 20000;
 const STEP = 100; 
 
-const formatearDinero= computed(() => {
+const formatearDinero = (valor) => {
   const formatter = new Intl.NumberFormat('en-US', {
     style: 'currency',
     currency: 'USD'
   });
-  return formatter.format(cantidad.value)
-});
+  return formatter.format(valor)
+};
+
 
 const handleChangeDecremento = () => {
 
@@ -67,10 +68,12 @@ const handleChangeIncremento = () => {
         :min="MIN"
         :max="MAX"
         :step="STEP"
-        v-model="cantidad"
+        v-model.number = "cantidad"
       />
 
-      <p class="text-center my-10 text-5xl font-extrabold text-indigo-600"> {{formatearDinero}}</p>
+      <p class="text-center my-10 text-5xl font-extrabold text-indigo-600"> 
+        {{formatearDinero(cantidad)}}
+      </p>
       <h2 class="text-2xl font-extrabold text-gray-500 text-center">
         Elige un <span class="text-indigo-600">Plazo </span> a pagar.
       </h2>
@@ -89,7 +92,7 @@ const handleChangeIncremento = () => {
           Resumen <span class="text-indigo-600">de pagos</span>
         </h2>
         <p class="text-xl text-gray-500 text-center font-bold">{{meses}} Meses</p>
-        <p class="text-xl text-gray-500 text-center font-bold">Total a pagar: {{ total }}</p>
+        <p class="text-xl text-gray-500 text-center font-bold">Total a pagar: {{ formatearDinero(total) }}</p>
         <p class="text-xl text-gray-500 text-center font-bold">Mensuales </p>
     </div>
   </div>
